@@ -1,0 +1,38 @@
+Gross Sales Revenue =
+CALCULATE(
+    SUMX(RetailTransactions, RetailTransactions[Quantity] * RetailTransactions[UnitPrice]),
+    RetailTransactions[Quantity] > 0,
+    RetailTransactions[UnitPrice] > 0,
+    RetailTransactions[is_cancellation_invoice] = FALSE()
+)
+
+Eligible Sales Orders =
+CALCULATE(
+    DISTINCTCOUNT(RetailTransactions[InvoiceNo]),
+    RetailTransactions[Quantity] > 0,
+    RetailTransactions[UnitPrice] > 0,
+    RetailTransactions[is_cancellation_invoice] = FALSE()
+)
+
+Units Sold =
+CALCULATE(
+    SUM(RetailTransactions[Quantity]),
+    RetailTransactions[Quantity] > 0,
+    RetailTransactions[UnitPrice] > 0,
+    RetailTransactions[is_cancellation_invoice] = FALSE()
+)
+
+Identified Customers =
+CALCULATE(
+    DISTINCTCOUNT(RetailTransactions[CustomerID]),
+    RetailTransactions[CustomerID] <> BLANK(),
+    RetailTransactions[Quantity] > 0,
+    RetailTransactions[UnitPrice] > 0,
+    RetailTransactions[is_cancellation_invoice] = FALSE()
+)
+
+YearMonth = FORMAT(RetailTransactions[InvoiceDate], "yyyy-MM")
+
+YearMonthSort =
+YEAR(RetailTransactions[InvoiceDate]) * 100
+    + MONTH(RetailTransactions[InvoiceDate])

@@ -1,0 +1,9 @@
+# Local data / Power BI outputs
+Online Retail.xlsx
+online_retail_analytics.csv
+*.pbix
+*.pbit
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
